@@ -10,16 +10,12 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.RequestContext;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import java.nio.file.Paths; // <-- Thêm import
+import java.nio.file.Paths;
 
 public class VideoService {
 
     private static final String ML_SERVER_URL = "http://127.0.0.1:5000/detect";
-
-    // === SỬA LỖI 2: Thống nhất đường dẫn lưu trữ ===
-    // Trỏ đến cùng thư mục với VideoController
     private static final String STORAGE_DIRECTORY = "video_storage";
-    // ========================================
 
     public File saveUploadedFile(HttpExchange exchange) throws Exception {
 
@@ -31,34 +27,22 @@ public class VideoService {
         for (FileItem item : items) {
             if (!item.isFormField()) {
 
-                // Đảm bảo thư mục lưu trữ tồn tại
                 File uploadDir = new File(STORAGE_DIRECTORY);
                 if (!uploadDir.exists()) {
                     uploadDir.mkdirs();
                 }
-
-                // === SỬA LỖI 3: Dùng tên file gốc thay vì UUID ===
-                // Lấy tên file gốc từ client (ví dụ: "my_video.mp4")
-                // Điều này rất quan trọng để khớp với CSDL
                 String originalFileName = Paths.get(item.getName()).getFileName().toString();
-
                 File savedFile = new File(uploadDir, originalFileName);
-                // ===========================================
-
-                item.write(savedFile); // Lưu file vào (ví dụ) "video_storage/my_video.mp4"
+                item.write(savedFile);
 
                 System.out.println("Đã lưu file hợp lệ tại: " + savedFile.getAbsolutePath());
-                item.delete(); // Xóa file tạm (đây là hành vi đúng)
+                item.delete();
                 return savedFile;
             }
         }
 
         throw new IOException("Không tìm thấy file video nào trong request.");
     }
-
-    /**
-     * Gửi video đến ML server Flask (GIỮ NGUYÊN - KHÔNG CẦN SỬA)
-     */
     public String sendToMLServer(File videoFile) throws IOException {
         String boundary = "----Boundary" + System.currentTimeMillis();
         HttpURLConnection connection = (HttpURLConnection) new URL(ML_SERVER_URL).openConnection();
@@ -83,8 +67,6 @@ public class VideoService {
             out.writeBytes("\r\n--" + boundary + "--\r\n");
             out.flush();
         }
-
-        // Đọc JSON trả về từ Flask
         int responseCode = connection.getResponseCode();
         InputStream responseStream = (responseCode == 200)
                 ? connection.getInputStream()
@@ -99,8 +81,6 @@ public class VideoService {
         connection.disconnect();
         return response.toString();
     }
-
-    // Lớp nội bộ này đã chính xác, giữ nguyên
     class HttpExchangeRequestContext implements RequestContext {
         private final HttpExchange exchange;
 

@@ -66,10 +66,6 @@ public class ProcessingSummaryController {
         }
     }
 
-    // === HÀM MỚI ĐƯỢC THÊM VÀO ===
-    /**
-     * Xử lý API để cập nhật trạng thái của một ProcessingLog (Pending -> Completed)
-     */
     public void handleUpdateProcessingLogStatus(HttpExchange exchange) throws IOException {
         if (!"POST".equalsIgnoreCase(exchange.getRequestMethod())) {
             sendResponse(exchange, 405, "{\"error\":\"Only POST allowed\"}");
@@ -86,7 +82,6 @@ public class ProcessingSummaryController {
                 return;
             }
 
-            // Gọi DAO để cập nhật (sử dụng instance logDAO đã có)
             boolean success = logDAO.updateStatus(processingLogId, status);
 
             if (success) {
@@ -99,7 +94,6 @@ public class ProcessingSummaryController {
             sendResponse(exchange, 500, "{\"error\":\"" + e.getMessage() + "\"}");
         }
     }
-    // =============================
 
 
     private void sendResponse(HttpExchange exchange, int code, String response) throws IOException {

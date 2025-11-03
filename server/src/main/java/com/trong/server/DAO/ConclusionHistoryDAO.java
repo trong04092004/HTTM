@@ -7,8 +7,8 @@ import com.trong.model.User;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.sql.Types; // <-- THÊM IMPORT
-import java.util.List; // <-- THÊM IMPORT
+import java.sql.Types;
+import java.util.List;
 
 public class ConclusionHistoryDAO extends DAO {
 
@@ -18,7 +18,6 @@ public class ConclusionHistoryDAO extends DAO {
                 "verdictChanges, tblFraudLogid, tblUserid) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
 
-        // *** BẮT ĐẦU SỬA: Thêm khối quản lý transaction ***
         boolean oldAutoCommit = false;
         try {
             oldAutoCommit = connection.getAutoCommit();
@@ -44,7 +43,7 @@ public class ConclusionHistoryDAO extends DAO {
                 int rowsAffected = ps.executeUpdate();
 
                 if (rowsAffected > 0) {
-                    connection.commit(); // *** QUAN TRỌNG: Commit thay đổi ***
+                    connection.commit();
                     return true;
                 } else {
                     connection.rollback();
@@ -58,7 +57,6 @@ public class ConclusionHistoryDAO extends DAO {
         } finally {
             try { connection.setAutoCommit(oldAutoCommit); } catch (SQLException e) { e.printStackTrace(); } // Trả về trạng thái cũ
         }
-        // *** KẾT THÚC SỬA ***
     }
     public boolean saveConclusionHistoryBatch(List<ConclusionHistory> histories) {
         String sql = "INSERT INTO tblConclusionHistory (oldStatus, newStatus, conclusionTimestamp, " +

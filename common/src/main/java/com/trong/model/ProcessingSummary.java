@@ -1,6 +1,6 @@
 package com.trong.model;
 
-public class ProcessingSummary extends ProcessingLog{
+public class ProcessingSummary extends ProcessingLog {
 
     private int totalDuration;
     private int fraudLogCount;

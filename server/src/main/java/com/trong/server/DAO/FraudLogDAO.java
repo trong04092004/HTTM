@@ -120,10 +120,10 @@ public class FraudLogDAO extends DAO {
                 int rowsAffected = ps.executeUpdate();
 
                 if (rowsAffected > 0) {
-                    connection.commit(); // *** QUAN TRỌNG: Commit thay đổi ***
+                    connection.commit();
                     return true;
                 } else {
-                    connection.rollback(); // Không có hàng nào được cập nhật
+                    connection.rollback();
                     return false;
                 }
             }
@@ -172,7 +172,7 @@ public class FraudLogDAO extends DAO {
             try { connection.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
             return false;
         } finally {
-            try { connection.setAutoCommit(true); } catch (SQLException e) { e.printStackTrace(); } // Trả về chế độ auto-commit
+            try { connection.setAutoCommit(true); } catch (SQLException e) { e.printStackTrace(); }
         }
     }
 }

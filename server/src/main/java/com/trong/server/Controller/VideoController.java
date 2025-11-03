@@ -21,7 +21,6 @@ public class VideoController {
     private final ProcessingLogDAO processingDAO = new ProcessingLogDAO();
     private final FraudLogDAO fraudDAO = new FraudLogDAO();
 
-    // Đường dẫn này đã ĐÚNG và sẽ được giữ nguyên
     private static final Path VIDEO_STORAGE_PATH = Paths.get("video_storage");
 
     private final VideoService videoService = new VideoService();
@@ -32,11 +31,7 @@ public class VideoController {
             sendResponse(exchange, 405, "Only POST allowed");
             return;
         }
-
-        // Sửa: Bỏ 'File videoFile = null;'
-
         try {
-            // Sửa: Chuyển 'videoFile' vào trong try-block
             File videoFile = videoService.saveUploadedFile(exchange);
             String mlResponse = videoService.sendToMLServer(videoFile);
             sendResponse(exchange, 200, mlResponse);
@@ -44,15 +39,7 @@ public class VideoController {
             e.printStackTrace();
             sendResponse(exchange, 500, gson.toJson(Map.of("error", "Lỗi xử lý file: " + e.getMessage())));
         }
-
-        // === SỬA LỖI 1: XÓA BỎ KHỐI 'finally' ===
-        // Khối 'finally' đã bị xóa hoàn toàn để ngăn video bị xóa.
-        // ======================================
     }
-
-    /**
-     * Sửa: Thêm Try-Catch để bắt lỗi CSDL và ngăn server sập
-     */
     public void handleSaveResults(HttpExchange exchange) throws IOException {
 
         if (!"POST".equalsIgnoreCase(exchange.getRequestMethod())) {
@@ -70,9 +57,6 @@ public class VideoController {
             JsonArray logsJson = requestJson.getAsJsonArray("logs");
 
             Video video = new Video();
-
-            // Tên file gốc (ví dụ: "my_video.mp4") sẽ được lưu vào CSDL
-            // Tên này phải khớp với tên file đã lưu trong 'VideoService'
             video.setUrl(videoJson.get("url").getAsString());
             video.setUploadDate(new java.util.Date());
             video.setDuration(videoJson.has("duration") ? videoJson.get("duration").getAsInt() : 0);
@@ -134,7 +118,7 @@ public class VideoController {
         }
 
         try {
-            // Đường dẫn này ("video_storage") giờ đã khớp với 'VideoService'
+
             Path filePath = VIDEO_STORAGE_PATH.resolve(fileName).toAbsolutePath().normalize();
 
             if (!filePath.startsWith(VIDEO_STORAGE_PATH.toAbsolutePath())) {
@@ -152,7 +136,7 @@ public class VideoController {
 
             String mimeType = Files.probeContentType(filePath);
             if (mimeType == null) {
-                mimeType = "video/mp4"; // Mặc định
+                mimeType = "video/mp4";
             }
 
             exchange.getResponseHeaders().set("Content-Type", mimeType);

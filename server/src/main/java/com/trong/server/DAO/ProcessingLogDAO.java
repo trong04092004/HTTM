@@ -2,8 +2,8 @@ package com.trong.server.DAO;
 
 import com.trong.model.ProcessingLog;
 import java.sql.*;
-import java.util.HashMap; // <-- THÊM IMPORT
-import java.util.Map; // <-- THÊM IMPORT
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProcessingLogDAO extends DAO {
 
@@ -52,9 +52,6 @@ public class ProcessingLogDAO extends DAO {
         return null;
     }
 
-    /**
-     * HÀM MỚI: Lấy chi tiết Log và Video URL (cho MediaView)
-     */
     public Map<String, Object> getLogAndVideoDetails(int processingLogId) {
         Map<String, Object> details = new HashMap<>();
 
@@ -75,12 +72,10 @@ public class ProcessingLogDAO extends DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return details; // Trả về Map
+        return details;
     }
     public boolean updateStatus(int processingLogId, String status) {
         String sql = "UPDATE tblProcessingLog SET status = ? WHERE idPL = ?";
-
-        // Quản lý transaction (commit/rollback)
         boolean oldAutoCommit = false;
         try {
             oldAutoCommit = connection.getAutoCommit();

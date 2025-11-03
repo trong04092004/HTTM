@@ -18,7 +18,7 @@ public class UserController {
     private final Gson gson = new Gson();
 
     public void handleLogin(HttpExchange exchange) throws IOException {
-        // Chỉ chấp nhận POST
+
         if (!"POST".equalsIgnoreCase(exchange.getRequestMethod())) {
             sendResponse(exchange, 405, Map.of(
                     "success", false,
