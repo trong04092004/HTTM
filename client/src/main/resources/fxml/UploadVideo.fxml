@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="720.0" prefWidth="1100.0"
+            xmlns="http://javafx.com/javafx/19"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.trong.client.Controller.UploadVideoController">
+
+    <left>
+        <VBox prefWidth="200.0" spacing="12.0"
+              style="-fx-background-color: #f8f9fa; -fx-border-color: #dcdcdc; -fx-border-width: 0 1 0 0;">
+            <children>
+                <VBox spacing="10.0">
+                    <children>
+                        <Button text="🏠  Trang chủ" onAction="#handleHome"
+                                style="-fx-background-color: transparent; -fx-text-fill: #000; -fx-font-size: 13px;  -fx-alignment: CENTER_LEFT;"/>
+                        <Button text="⭱  Tải video lên" disable="true"
+                                style="-fx-background-color: #e9ecef; -fx-text-fill: #000; -fx-font-size: 13px; -fx-font-weight: bold; -fx-alignment: CENTER_LEFT;"/>
+                        <Button text="⏱  Lịch sử" onAction="#handleHistory"
+                                style="-fx-background-color: transparent; -fx-text-fill: #333; -fx-font-size: 13px; -fx-alignment: CENTER_LEFT;"/>
+                    </children>
+                    <padding><Insets top="20.0" left="20.0"/></padding>
+                </VBox>
+
+                <Separator/>
+
+                <VBox VBox.vgrow="ALWAYS"/>
+
+                <Button fx:id="btnLogout" text="⏻  Đăng xuất"
+                        onAction="#handleLogout"
+                        maxWidth="Infinity"
+                        style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-size: 13px;"/>
+            </children>
+        </VBox>
+    </left>
+
+    <center>
+        <AnchorPane style="-fx-background-color: white;">
+            <children>
+                <VBox spacing="20.0" alignment="CENTER"
+                      AnchorPane.topAnchor="25.0"
+                      AnchorPane.leftAnchor="20.0"
+                      AnchorPane.rightAnchor="20.0"
+                      AnchorPane.bottomAnchor="20.0">
+
+                    <Label text="Tải Video lên">
+                        <font><Font name="System Bold" size="24.0"/></font>
+                    </Label>
+
+                    <Label text="Tải video lên để hệ thống phát hiện hành vi gian lận trong phòng thi (cheating)."
+                           wrapText="true" maxWidth="700.0"
+                           style="-fx-text-fill: #555; -fx-font-size: 14px; -fx-text-alignment: center;"/>
+
+                    <StackPane fx:id="videoContainer" prefWidth="640" prefHeight="360"
+                               style="-fx-border-color: #ccc; -fx-border-radius: 6; -fx-background-radius: 6;"
+                               onMouseEntered="#showControls" onMouseExited="#hideControls">
+                        <MediaView fx:id="mediaView" fitWidth="640" fitHeight="360" preserveRatio="true"/>
+
+                        <VBox fx:id="controlsBox" alignment="BOTTOM_CENTER"
+                              style="-fx-background-color: rgba(0, 0, 0, 0.6);"
+                              maxHeight="40" VBox.vgrow="NEVER"
+                              StackPane.alignment="BOTTOM_CENTER" visible="false">
+                            <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 5 10 5 10;">
+                                <Button fx:id="btnPlayPause" text="▶" onAction="#handlePlayPause"
+                                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                                <Label fx:id="lblCurrentTime" text="00:00" style="-fx-text-fill: white;"/>
+                                <Slider fx:id="sliderTime" HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="lblTotalTime" text="00:00" style="-fx-text-fill: white;"/>
+                            </HBox>
+                        </VBox>
+                    </StackPane>
+
+                    <HBox spacing="15" alignment="CENTER">
+                        <Button fx:id="btnSelectVideo" text="Chọn Video"
+                                onAction="#handleSelectVideo"
+                                style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-weight: bold;
+                                       -fx-background-radius: 6; -fx-padding: 8 24 8 24;"/>
+                        <Button fx:id="btnProcess" text="Gửi tới Server xử lý"
+                                onAction="#handleProcessVideo"
+                                style="-fx-background-color: #10b981; -fx-text-fill: white; -fx-font-weight: bold;
+                                       -fx-background-radius: 6; -fx-padding: 8 24 8 24;"/>
+                    </HBox>
+
+                    <VBox fx:id="resultBox" spacing="8.0" alignment="CENTER" visible="false" managed="false">
+                        <Label text="Danh sách hành vi phát hiện"
+                               style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                        <TableView fx:id="tableViolations" prefWidth="700.0" prefHeight="220.0" style="-fx-font-size: 13px;">
+                            <columns>
+                                <TableColumn fx:id="colStart" text="Thời gian bắt đầu" prefWidth="200.0"/>
+                                <TableColumn fx:id="colEnd" text="Thời gian kết thúc" prefWidth="200.0"/>
+                                <TableColumn fx:id="colType" text="Loại hành vi" prefWidth="300.0"/>
+                            </columns>
+                        </TableView>
+
+                        <Button fx:id="btnSave" text="💾 Lưu kết quả"
+                                onAction="#handleSaveResults"
+                                style="-fx-background-color: #2563eb; -fx-text-fill: white;
+                                       -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 6 20 6 20;"/>
+                    </VBox>
+
+                </VBox>
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>

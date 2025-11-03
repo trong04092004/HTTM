@@ -1,0 +1,54 @@
+.root-pane {
+    -fx-font-family: "System", "Segoe UI";
+    -fx-background-color: #f0f4f8; /* Nền xanh nhạt */
+    -fx-font-size: 14px;
+}
+
+.login-pane {
+    -fx-background-color: #ffffff;
+    -fx-padding: 40;
+    -fx-spacing: 20;
+    -fx-max-width: 400;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 20, 0, 0, 3);
+}
+
+.login-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #222;
+}
+
+.login-field {
+    -fx-font-size: 14px;
+    -fx-padding: 12 15; /* Tăng padding */
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #dcdcdc;
+    -fx-pref-width: 280px;
+}
+.login-field:focused {
+    -fx-border-color: #007bff;
+    -fx-effect: dropshadow(gaussian, rgba(0,123,255,0.25), 4, 0, 0, 0);
+}
+
+.login-button {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-background-radius: 8;
+    -fx-padding: 12 15;
+    -fx-pref-width: 280px;
+    -fx-cursor: hand;
+}
+.login-button:hover {
+    -fx-background-color: #0056b3;
+}
+
+.status-label {
+    -fx-text-fill: #d9534f; /* Màu đỏ lỗi */
+    -fx-font-size: 13px;
+    -fx-wrap-text: true;
+    -fx-max-width: 280px;
+}

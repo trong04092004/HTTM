@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.trong.client.Controller.LoginController"
+            prefWidth="400" prefHeight="300"
+            stylesheets="@../css/login.css"
+            styleClass="root-pane">
+
+    <VBox alignment="CENTER" spacing="15"
+          AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+          styleClass="login-pane">
+
+        <Label text="Đăng nhập hệ thống" styleClass="login-title"/>
+
+        <TextField fx:id="txtUsername" promptText="Tên đăng nhập" prefWidth="260" styleClass="login-field"/>
+        <PasswordField fx:id="txtPassword" promptText="Mật khẩu" prefWidth="260" styleClass="login-field"/>
+
+        <Button text="Đăng nhập" onAction="#handleLogin" prefWidth="260" styleClass="login-button"/>
+        <Label fx:id="lblStatus" textFill="red" wrapText="true" styleClass="status-label"/>
+
+    </VBox>
+</AnchorPane>

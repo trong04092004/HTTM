@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="720.0" prefWidth="1100.0"
+            xmlns="http://javafx.com/javafx/19"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.trong.client.Controller.VideoHistoryController">
+
+    <left>
+        <VBox fx:id="sidebar"
+              prefWidth="180.0"
+              spacing="12.0"
+              style="-fx-background-color: #f8f9fa; -fx-border-color: #dcdcdc; -fx-border-width: 0 1 0 0;"
+              BorderPane.alignment="CENTER_LEFT">
+
+            <children>
+                <VBox spacing="10.0">
+                    <children>
+                        <Button text="🏠  Trang chủ"
+                                onAction="#handleHome"
+                                style="-fx-background-color: transparent; -fx-text-fill: #000; -fx-font-size: 13px;  -fx-alignment: CENTER_LEFT;"/>
+                        <Button text="⭱  Tải video lên"
+                                onAction="#handleUploadVideo"
+                                style="-fx-background-color: transparent; -fx-text-fill: #333; -fx-font-size: 13px; -fx-alignment: CENTER_LEFT;"/>
+                        <Button text="⏱  Lịch sử"
+                                disable="true"
+                                style="-fx-background-color: transparent; -fx-text-fill: #333; -fx-font-size: 13px;-fx-font-weight: bold; -fx-alignment: CENTER_LEFT;"/>
+                    </children>
+                    <padding>
+                        <Insets top="16.0" right="16.0" bottom="16.0" left="16.0"/>
+                    </padding>
+                </VBox>
+
+                <Separator/>
+
+                <VBox VBox.vgrow="ALWAYS" />
+
+                <Button fx:id="btnLogout"
+                        text="⏻  Đăng xuất"
+                        onAction="#handleLogout"
+                        mnemonicParsing="false"
+                        maxWidth="Infinity"
+                        style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-size: 13px; -fx-background-radius: 0;"/>
+            </children>
+        </VBox>
+    </left>
+
+    <center>
+        <AnchorPane style="-fx-background-color: white;">
+            <children>
+                <VBox spacing="16.0"
+                      AnchorPane.topAnchor="20.0"
+                      AnchorPane.leftAnchor="20.0"
+                      AnchorPane.rightAnchor="20.0"
+                      AnchorPane.bottomAnchor="20.0">
+
+                    <VBox alignment="CENTER_LEFT" spacing="6.0">
+                        <children>
+                            <Label text="Lịch sử video đã xử lý">
+                                <font>
+                                    <Font name="System Bold" size="22.0" />
+                                </font>
+                            </Label>
+                            <Label text="Xem lại lịch sử các video bài kiểm tra đã được xử lý, trạng thái của chúng và nhật ký vi phạm chi tiết."
+                                   wrapText="true"
+                                   maxWidth="650.0"
+                                   style="-fx-text-fill: #666; -fx-font-size: 13px;" />
+                        </children>
+                    </VBox>
+
+                    <VBox spacing="12.0"
+                          style="-fx-background-color: #ffffff; -fx-border-color: #dcdcdc; -fx-border-radius: 4; -fx-background-radius: 4;"
+                          VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets top="16.0" right="16.0" bottom="16.0" left="16.0"/>
+                        </padding>
+
+                        <children>
+                            <VBox spacing="4.0">
+                                <children>
+                                    <Label text="Danh sách Video"
+                                           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000;" />
+                                    <Label text="Tổng quan về tất cả các video đã tải lên và trạng thái xử lý của chúng."
+                                           wrapText="true"
+                                           maxWidth="800"
+                                           style="-fx-font-size: 12px; -fx-text-fill: #666;" />
+                                </children>
+                            </VBox>
+
+                            <TableView fx:id="tblProcessSummary"
+                                       prefHeight="360.0"
+                                       VBox.vgrow="ALWAYS"
+                                       style="-fx-font-size: 13px;">
+                                <columns>
+                                    <TableColumn fx:id="colIdVideo" text="ID Video" prefWidth="90.0"/>
+                                    <TableColumn fx:id="colTenVideo" text="Tên Video" prefWidth="230.0"/>
+                                    <TableColumn fx:id="colNgayTaiLen" text="Ngày Tải Lên" prefWidth="130.0"/>
+                                    <TableColumn fx:id="colTrangThai" text="Trạng thái xử lý" prefWidth="150.0"/>
+                                    <TableColumn fx:id="colSoViPham" text="Số vi phạm" prefWidth="100.0"/>
+                                    <TableColumn fx:id="colHanhDong" text="Hành động" prefWidth="120.0"/>
+                                </columns>
+                                <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                </columnResizePolicy>
+                            </TableView>
+
+                        </children>
+                    </VBox>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="720.0" prefWidth="1100.0"
+            xmlns="http://javafx.com/javafx/19"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.trong.client.Controller.HomeController">
+
+    <!-- SIDEBAR TRÁI -->
+    <left>
+        <VBox fx:id="sidebar"
+              prefWidth="180.0"
+              spacing="12.0"
+              style="-fx-background-color: #f8f9fa; -fx-border-color: #dcdcdc; -fx-border-width: 0 1 0 0;"
+              BorderPane.alignment="CENTER_LEFT">
+
+            <children>
+                <VBox spacing="10.0">
+                    <children>
+                        <Button text="🏠  Trang chủ"
+                                onAction="#handleHome"
+                                style="-fx-background-color: transparent; -fx-text-fill: #000; -fx-font-size: 13px; -fx-font-weight: bold; -fx-alignment: CENTER_LEFT;"/>
+                        <Button text="⭱  Tải video lên"
+                                onAction="#handleUploadVideo"
+                                style="-fx-background-color: transparent; -fx-text-fill: #333; -fx-font-size: 13px; -fx-alignment: CENTER_LEFT;"/>
+                        <Button text="⏱  Lịch sử"
+                                onAction="#handleVideoHistory"
+                                style="-fx-background-color: transparent; -fx-text-fill: #333; -fx-font-size: 13px; -fx-alignment: CENTER_LEFT;"/>
+                    </children>
+                    <padding>
+                        <Insets top="16.0" right="16.0" bottom="16.0" left="16.0"/>
+                    </padding>
+                </VBox>
+
+                <Separator/>
+
+                <VBox VBox.vgrow="ALWAYS" />
+
+                <Button fx:id="btnLogout"
+                        text="⏻  Đăng xuất"
+                        onAction="#handleLogout"
+                        mnemonicParsing="false"
+                        maxWidth="Infinity"
+                        style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-size: 13px; -fx-background-radius: 0;"/>
+            </children>
+        </VBox>
+    </left>
+
+    <center>
+        <AnchorPane style="-fx-background-color: white;">
+            <children>
+                <VBox spacing="16.0"
+                      AnchorPane.topAnchor="20.0"
+                      AnchorPane.leftAnchor="20.0"
+                      AnchorPane.rightAnchor="20.0"
+                      AnchorPane.bottomAnchor="20.0">
+
+                    <children>
+
+                        <!-- HEADER -->
+                        <VBox alignment="CENTER_LEFT" spacing="6.0">
+                            <children>
+                                <Label fx:id="labelWelcome" text="Chào mừng bạn trở lại">
+                                    <font>
+                                        <Font name="System Bold" size="22.0" />
+                                    </font>
+                                </Label>
+
+                                <Label fx:id="labelSubtitle"
+                                       text="Nền tảng xử lý video và cảnh báo gian lận của bạn."
+                                       style="-fx-text-fill: #666; -fx-font-size: 13px;" />
+                            </children>
+                        </VBox>
+
+                        <!-- KHỐI TỔNG QUAN -->
+                        <VBox spacing="12.0"
+                              style="-fx-background-color: #ffffff; -fx-border-color: #dcdcdc; -fx-border-radius: 4; -fx-background-radius: 4;">
+                            <padding>
+                                <Insets top="16.0" right="16.0" bottom="16.0" left="16.0"/>
+                            </padding>
+
+                            <children>
+                                <Label text="Tổng quan hệ thống"
+                                       style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000;" />
+
+                                <HBox spacing="24.0">
+                                    <VBox spacing="6.0" alignment="TOP_LEFT" prefWidth="220" prefHeight="140"
+                                          style="-fx-background-color: white; -fx-border-color: #dcdcdc; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 12;">
+                                        <Label text="Tải video lên" style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+                                        <Label text="Dễ dàng tải lên video của bạn để phân tích và xử lý."
+                                               wrapText="true" style="-fx-text-fill: #555; -fx-font-size: 12px;"/>
+                                    </VBox>
+
+                                    <VBox spacing="6.0" alignment="TOP_LEFT" prefWidth="220" prefHeight="140"
+                                          style="-fx-background-color: white; -fx-border-color: #dcdcdc; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 12;">
+                                        <Label text="Lịch sử video đã xử lý" style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+                                        <Label text="Xem lại tất cả các video đã được hệ thống xử lý hoàn chỉnh."
+                                               wrapText="true" style="-fx-text-fill: #555; -fx-font-size: 12px;"/>
+                                    </VBox>
+
+                                    <VBox spacing="6.0" alignment="TOP_LEFT" prefWidth="220" prefHeight="140"
+                                          style="-fx-background-color: white; -fx-border-color: #dcdcdc; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 12;">
+                                        <Label text="Cảnh báo gian lận" style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+                                        <Label text="Nhận cảnh báo và nhật ký về các hoạt động đáng ngờ được phát hiện trong video."
+                                               wrapText="true" style="-fx-text-fill: #555; -fx-font-size: 12px;"/>
+                                    </VBox>
+                                </HBox>
+                            </children>
+                        </VBox>
+
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </center>
+
+</BorderPane>
